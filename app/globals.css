@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-hive-dark text-gray-200 font-mono antialiased;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    overscroll-behavior-y: contain;
+  }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom, 20px); }
+  .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+  .no-select { -webkit-user-select: none; user-select: none; }
+  html.light body { @apply bg-gray-50 text-gray-900; }
+  html.light .hive-panel { @apply bg-white border-gray-200 shadow-sm; }
+}
+
+@layer components {
+  .hive-panel { @apply bg-hive-panel border border-hive-border rounded-xl overflow-hidden; }
+  .hive-btn { @apply px-4 py-3 border border-gray-700 bg-gray-900 rounded-lg text-sm hover:border-hive-accent hover:text-hive-accent transition-all active:scale-95 no-select; }
+  html.light .hive-btn { @apply border-gray-300 bg-white text-gray-700; }
+  .hive-btn-primary { @apply hive-btn bg-hive-accent/10 border-hive-accent text-hive-accent; }
+  .hive-btn-danger { @apply hive-btn border-hive-red text-hive-red hover:bg-hive-red hover:text-white; }
+  .stat-value { @apply text-3xl font-bold bg-gradient-to-r from-hive-accent to-hive-blue bg-clip-text text-transparent; }
+  .touch-card { @apply active:scale-[0.98] transition-transform; }
+  .bottom-sheet { @apply fixed bottom-0 left-0 right-0 bg-hive-panel rounded-t-2xl p-4 z-50; padding-bottom: env(safe-area-inset-bottom, 16px); }
+}

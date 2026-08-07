@@ -1,0 +1,8 @@
+const HIVE_API = process.env.NEXT_PUBLIC_HIVE_API || "http://localhost:8080";
+export async function fetchHealth(endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/health`, { next: { revalidate: 2 } }); return r.json(); }
+export async function fetchMembers(endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/members`, { next: { revalidate: 2 } }); return r.json(); }
+export async function fetchMetrics(endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/metrics`, { next: { revalidate: 2 } }); return r.json(); }
+export async function fetchGPUStatus(endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/gpu/status`, { next: { revalidate: 5 } }); return r.ok ? r.json() : { gpus: [], models: [], compute_score: 0 }; }
+export async function fetchAnchorStatus(endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/anchor/status`, { next: { revalidate: 10 } }); return r.ok ? r.json() : { chain: "none", anchors_count: 0, latest: null }; }
+export async function triggerInference(model: string, input: number[], endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/gpu/infer`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model_id: model, input }) }); return r.json(); }
+export async function triggerChaos(scenario: string, endpoint?: string) { const r = await fetch(`${endpoint || HIVE_API}/chaos/trigger`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ scenario }) }); return r.json(); }
